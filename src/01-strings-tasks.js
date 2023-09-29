@@ -1,27 +1,6 @@
-/* *******************************************************************************************
- *                                                                                           *
- * Please read the following tutorial before implementing tasks:                              *
- * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String   *
- *                                                                                           *
- ******************************************************************************************* */
-
-
-/**
- * Returns the result of concatenation of two strings.
- *
- * @param {string} value1
- * @param {string} value2
- * @return {string}
- *
- * @example
- *   'aa', 'bb' => 'aabb'
- *   'aa',''    => 'aa'
- *   '',  'bb'  => 'bb'
- */
 function concatenateStrings(value1, value2) {
   return value1 + value2;
 }
-
 
 /**
  * Returns the length of given string.
@@ -66,7 +45,7 @@ function getStringFromTemplate(firstName, lastName) {
  *   'Hello, Chuck Norris!' => 'Chuck Norris'
  */
 function extractNameFromTemplate(value) {
-  return value.substring(7, (value.length - 2));
+  return value.substring(7, (value.length - 1));
 }
 
 
@@ -111,7 +90,7 @@ function removeLeadingAndTrailingWhitespaces(value) {
  *   'cat', 3 => 'catcatcat'
  */
 function repeatString(value, count) {
-  let b = new Array(count + 1).join(value);
+  const b = new Array(count + 1).join(value);
   return b;
 }
 
@@ -128,8 +107,8 @@ function repeatString(value, count) {
  *   'ABABAB','BA' => 'ABAB'
  */
 function removeFirstOccurrences(str, value) {
-  let newstr = str.replace(value, '');
-  return newstr;
+  const newStr = str.replace(value, '');
+  return newStr;
 }
 
 /**
@@ -144,8 +123,8 @@ function removeFirstOccurrences(str, value) {
  *   '<a>' => 'a'
  */
 function unbracketTag(str) {
-  let newStr = str.replace('<', '');
-  let res = newStr.replace('>', ''); 
+  const newStr = str.replace('<', '');
+  const res = newStr.replace('>', '');
   return res;
 }
 
@@ -161,7 +140,7 @@ function unbracketTag(str) {
  *  'abcdefghijklmnopqrstuvwxyz' => 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
  */
 function convertToUpperCase(str) {
-  let res = str.toUpperCase();
+  const res = str.toUpperCase();
   return res;
 }
 
@@ -181,7 +160,7 @@ function convertToUpperCase(str) {
  *   'info@gmail.com' => ['info@gmail.com']
  */
 function extractEmails(str) {
-  let arr = str.split(';');
+  const arr = str.split(';');
   return arr;
 }
 
@@ -211,44 +190,42 @@ function extractEmails(str) {
 function getRectangleString(width, height) {
   const g1 = '─';
   const g2 = '┌';
-  const g3 = '│';
   const g4 = '└';
   const g5 = '┐';
   const g6 = '┘';
   const space = ' ';
 
-  let w = g2 + g5;
-  let b = new Array(width - 1).join(g1);
-  let a = new Array(width - 1).join(space);
-  let wMore1 = g2 + b + g5;
-  let wMore2 = g4 + b + g6;
-  let h = g4 + g6;
+  const w = g2 + g5;
+  const b = new Array(width - 1).join(g1);
+  const a = new Array(width - 1).join(space);
+  const wMore1 = g2 + b + g5;
+  const wMore2 = g4 + b + g6;
+  const h = g4 + g6;
 
-  if(width === 2 && heigth === 2) {
-    console.log(w);
-    console.log(h);
+  if (width === 2 && height === 2) {
+    return `${w}\n${h}\n`;
   }
 
-  if(width > 2 && heigth === 2) {
-    console.log(wMore1);
-    console.log(wMore2);
+  if (width > 2 && height === 2) {
+    return `${wMore1}\n${wMore2}\n`;
   }
 
-  if(width === 2 && heigth > 2) {
-    console.log(w);
-    for(let i = 2; i < heigth; i++) {
-      console.log(g3 + space + g3);
+  const res = [];
+  if (width === 2 && height > 2) {
+    for (let i = 2; i < height; i += 1) {
+      const resStr = `│${space}│\n`;
+      res.push(resStr);
     }
-    console.log(h);
+    return `${w}\n${res.join('')}${h}\n`;
   }
 
-  if(width > 2 && heigth > 2) {
-    console.log(wMore1);
-    for(let i = 2; i < heigth; i++) {
-      console.log(g3 + a + g3);
+  if (width > 2 && height > 2) {
+    for (let i = 2; i < height; i += 1) {
+      const resStr = `│${a}│\n`;
+      res.push(resStr);
     }
-    console.log(wMore2);
   }
+  return `${wMore1}\n${res.join('')}${wMore2}\n`;
 }
 
 
@@ -269,18 +246,22 @@ function getRectangleString(width, height) {
  *
  */
 function encodeToRot13(str) {
-  const arrInput = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z',];
-  const arrOutput = ['N','O','P','Q','R','S','T','U','V','W','X','Y','Z','A','B','C','D','E','F','G','H','I','J','K','L','M','n','o','p','q','r','s','t','u','v','w','x','y','z','a','b','c','d','e','f','g','h','i','j','k','l','m',];
+  const arrInput = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+  const arrOutput = ['N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm'];
 
   const res = [];
 
-  const arrStr = str.split('')
-  const arrStrOutput = arrStr.map(el => {
-      let index = arrInput.indexOf(el)
-      if(index !== -1) {res.push(arrOutput[index])}
-      if(index === -1) {res.push(el)}
-  })
-
+  const arrStr = str.split('');
+  arrStr.map((el) => {
+    const index = arrInput.indexOf(el);
+    if (index !== -1) {
+      res.push(arrOutput[index]);
+    }
+    if (index === -1) {
+      res.push(el);
+    }
+    return res.join('');
+  });
   return res.join('');
 }
 
@@ -298,9 +279,10 @@ function encodeToRot13(str) {
  *   isString(new String('test')) => true
  */
 function isString(value) {
-  if(typeof(value) === 'string') {
-    return true
-} else {return false};
+  if (typeof (value) === 'string' || value instanceof String) {
+    return true;
+  }
+  return false;
 }
 
 
@@ -329,9 +311,9 @@ function isString(value) {
  *   'K♠' => 51
  */
 function getCardId(value) {
-  const arrCard = ['A♣','2♣','3♣','4♣','5♣','6♣','7♣','8♣','9♣','10♣','J♣','Q♣','K♣','A♦','2♦','3♦','4♦','5♦','6♦','7♦','8♦','9♦','10♦','J♦','Q♦','K♦','A♥','2♥','3♥','4♥','5♥','6♥','7♥','8♥','9♥','10♥','J♥','Q♥','K♥','A♠','2♠','3♠','4♠','5♠','6♠','7♠','8♠','9♠','10♠','J♠','Q♠','K♠',];
+  const arrCard = ['A♣', '2♣', '3♣', '4♣', '5♣', '6♣', '7♣', '8♣', '9♣', '10♣', 'J♣', 'Q♣', 'K♣', 'A♦', '2♦', '3♦', '4♦', '5♦', '6♦', '7♦', '8♦', '9♦', '10♦', 'J♦', 'Q♦', 'K♦', 'A♥', '2♥', '3♥', '4♥', '5♥', '6♥', '7♥', '8♥', '9♥', '10♥', 'J♥', 'Q♥', 'K♥', 'A♠', '2♠', '3♠', '4♠', '5♠', '6♠', '7♠', '8♠', '9♠', '10♠', 'J♠', 'Q♠', 'K♠'];
 
-  let index = arrCard.indexOf(value);
+  const index = arrCard.indexOf(value);
   return index;
 }
 
