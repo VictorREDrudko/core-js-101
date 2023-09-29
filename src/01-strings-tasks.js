@@ -208,8 +208,47 @@ function extractEmails(str) {
  *             '└──────────┘\n'
  *
  */
-function getRectangleString(/* width, height */) {
-  throw new Error('Not implemented');
+function getRectangleString(width, height) {
+  const g1 = '─';
+  const g2 = '┌';
+  const g3 = '│';
+  const g4 = '└';
+  const g5 = '┐';
+  const g6 = '┘';
+  const space = ' ';
+
+  let w = g2 + g5;
+  let b = new Array(width - 1).join(g1);
+  let a = new Array(width - 1).join(space);
+  let wMore1 = g2 + b + g5;
+  let wMore2 = g4 + b + g6;
+  let h = g4 + g6;
+
+  if(width === 2 && heigth === 2) {
+    console.log(w);
+    console.log(h);
+  }
+
+  if(width > 2 && heigth === 2) {
+    console.log(wMore1);
+    console.log(wMore2);
+  }
+
+  if(width === 2 && heigth > 2) {
+    console.log(w);
+    for(let i = 2; i < heigth; i++) {
+      console.log(g3 + space + g3);
+    }
+    console.log(h);
+  }
+
+  if(width > 2 && heigth > 2) {
+    console.log(wMore1);
+    for(let i = 2; i < heigth; i++) {
+      console.log(g3 + a + g3);
+    }
+    console.log(wMore2);
+  }
 }
 
 
@@ -229,8 +268,20 @@ function getRectangleString(/* width, height */) {
  *    => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
  *
  */
-function encodeToRot13(/* str */) {
-  throw new Error('Not implemented');
+function encodeToRot13(str) {
+  const arrInput = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z',];
+  const arrOutput = ['N','O','P','Q','R','S','T','U','V','W','X','Y','Z','A','B','C','D','E','F','G','H','I','J','K','L','M','n','o','p','q','r','s','t','u','v','w','x','y','z','a','b','c','d','e','f','g','h','i','j','k','l','m',];
+
+  const res = [];
+
+  const arrStr = str.split('')
+  const arrStrOutput = arrStr.map(el => {
+      let index = arrInput.indexOf(el)
+      if(index !== -1) {res.push(arrOutput[index])}
+      if(index === -1) {res.push(el)}
+  })
+
+  return res.join('');
 }
 
 /**
@@ -246,8 +297,10 @@ function encodeToRot13(/* str */) {
  *   isString('test') => true
  *   isString(new String('test')) => true
  */
-function isString(/* value */) {
-  throw new Error('Not implemented');
+function isString(value) {
+  if(typeof(value) === 'string') {
+    return true
+} else {return false};
 }
 
 
@@ -275,8 +328,11 @@ function isString(/* value */) {
  *   'Q♠' => 50
  *   'K♠' => 51
  */
-function getCardId(/* value */) {
-  throw new Error('Not implemented');
+function getCardId(value) {
+  const arrCard = ['A♣','2♣','3♣','4♣','5♣','6♣','7♣','8♣','9♣','10♣','J♣','Q♣','K♣','A♦','2♦','3♦','4♦','5♦','6♦','7♦','8♦','9♦','10♦','J♦','Q♦','K♦','A♥','2♥','3♥','4♥','5♥','6♥','7♥','8♥','9♥','10♥','J♥','Q♥','K♥','A♠','2♠','3♠','4♠','5♠','6♠','7♠','8♠','9♠','10♠','J♠','Q♠','K♠',];
+
+  let index = arrCard.indexOf(value);
+  return index;
 }
 
 
