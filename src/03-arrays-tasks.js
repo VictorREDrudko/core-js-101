@@ -32,13 +32,21 @@ function findElement(arr, value) {
  * @return {array}
  *
  * @example
-*/
+ *    1 => [ 1 ]
+ *    2 => [ 1, 3 ]
+ *    5 => [ 1, 3, 5, 7, 9 ]
+ */
 function generateOdds(len) {
-  const arr = [];
-  for (let i = 1; i <= (len + len - 1); i += 2) {
-    arr.push(i);
-  }
-  return arr;
+  const arr = Array.from({ length: len }, () => 1);
+  const res = [];
+  arr.reduce((prev, item) => {
+    let b = prev + item;
+    res.push(b);
+    b += 1;
+    return b;
+  }, 0);
+
+  return res;
 }
 
 /**
@@ -72,7 +80,7 @@ function doubleArray(arr) {
  */
 function getArrayOfPositives(arr) {
   const res = [];
-  arr.forEach((el) => {
+  arr.map((el) => {
     if (el > 0) {
       res.push(el);
     }
@@ -95,7 +103,7 @@ function getArrayOfPositives(arr) {
  */
 function getArrayOfStrings(arr) {
   const res = [];
-  arr.forEach((el) => {
+  arr.map((el) => {
     if (typeof (el) === 'string') {
       res.push(el);
     }
@@ -120,10 +128,11 @@ function getArrayOfStrings(arr) {
  */
 function removeFalsyValues(arr) {
   const res = [];
-  arr.forEach((el) => {
+  arr.map((el) => {
     if (el) {
       res.push(el);
     }
+    return el;
   });
   return res;
 }
@@ -236,11 +245,11 @@ function getTail(arr, n) {
  */
 function toCsvText(arr) {
   const res = arr.map((el) => {
-    const item = `+${el.join()}\n`;
+    const item = `${el.join()}\n`;
     return item;
   });
-  const str = res.join();
-  const strRes = str.substring(1, str.length - 1);
+  const str = res.join('');
+  const strRes = str.substring(0, str.length - 1);
   return strRes;
 }
 
@@ -302,10 +311,11 @@ function getMovingSum(arr) {
  */
 function getSecondItems(arr) {
   const res = [];
-  arr.forEach((el, index) => {
+  arr.map((el, index) => {
     if (index !== 0 && index % 2 !== 0) {
       res.push(el);
     }
+    return el;
   });
   return res;
 }
@@ -636,19 +646,20 @@ function swapHeadAndTail(arr) {
 
   if (arr.length % 2 === 0) {
     n = arr.length / 2;
-    arr.forEach((el, index) => {
+    arr.map((el, index) => {
       if (index < n) {
         head.push(el);
       }
       if (index >= n) {
         tail.push(el);
       }
+      return el;
     });
   }
 
   if (arr.length % 2 !== 0) {
     n = Math.floor(arr.length / 2);
-    arr.forEach((el, index) => {
+    arr.map((el, index) => {
       if (index < n) {
         head.push(el);
       }
@@ -658,6 +669,7 @@ function swapHeadAndTail(arr) {
       if (index === n) {
         middle.push(el);
       }
+      return el;
     });
   }
 
