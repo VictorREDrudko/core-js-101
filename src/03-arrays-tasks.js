@@ -320,7 +320,6 @@ function getSecondItems(arr) {
   return res;
 }
 
-
 /**
  * Propagates every item in sequence its position times
  * Returns an array that consists of: one first item, two second items, three third items etc.
@@ -335,8 +334,29 @@ function getSecondItems(arr) {
  *  [ 'a', 'b', 'c', null ] => [ 'a', 'b','b', 'c','c','c',  null,null,null,null ]
  *  [ 1,2,3,4,5 ] => [ 1, 2,2, 3,3,3, 4,4,4,4, 5,5,5,5,5 ]
  */
-function propagateItemsByPositionIndex(/* arr */) {
-  throw new Error('Not implemented');
+function propagateItemsByPositionIndex(arr) {
+  const res = [];
+  arr.map((el, index) => {
+    const a = [];
+    if (index === 0) {
+      a.splice(0, 0, el);
+    }
+    if (index === 1) {
+      a.splice(0, 0, el, el);
+    }
+    if (index === 2) {
+      a.splice(0, 0, el, el, el);
+    }
+    if (index === 3) {
+      a.splice(0, 0, el, el, el, el);
+    }
+    if (index === 4) {
+      a.splice(0, 0, el, el, el, el, el);
+    }
+    res.push(a);
+    return el;
+  });
+  return res.flat();
 }
 
 
@@ -353,8 +373,17 @@ function propagateItemsByPositionIndex(/* arr */) {
  *   [ 1,2,3,4,5,6,7,8,9,10 ] => [ 10, 9, 8 ]
  *   [ 10, 10, 10, 10 ] => [ 10, 10, 10 ]
  */
-function get3TopItems(/* arr */) {
-  throw new Error('Not implemented');
+function get3TopItems(arr) {
+  arr.sort((a, b) => {
+    const c = b - a;
+    return c;
+  });
+
+  if (arr.length > 3) {
+    const newArr = [arr[0], arr[1], arr[2]];
+    return newArr;
+  }
+  return arr;
 }
 
 
@@ -371,8 +400,16 @@ function get3TopItems(/* arr */) {
  *   [ null, 1, 'elephant' ] => 1
  *   [ 1, '2' ] => 1
  */
-function getPositivesCount(/* arr */) {
-  throw new Error('Not implemented');
+function getPositivesCount(arr) {
+  const res = [];
+  arr.map((el) => {
+    if (el > 0 && typeof (el) === 'number') {
+      res.push(el);
+    }
+    return el;
+  });
+
+  return res.length;
 }
 
 /**
@@ -593,7 +630,6 @@ function group(/* array, keySelector, valueSelector */) {
 function selectMany(/* arr, childrenSelector */) {
   throw new Error('Not implemented');
 }
-
 
 /**
  * Returns an element from the multidimensional array by the specified indexes.
