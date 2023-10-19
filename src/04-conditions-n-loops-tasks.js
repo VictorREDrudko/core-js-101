@@ -27,8 +27,24 @@
  *  21 => 'Fizz'
  *
  */
-function getFizzBuzz(/* num */) {
-  throw new Error('Not implemented');
+function getFizzBuzz(num) {
+  const strThree = 'Fizz';
+  const strFive = 'Buzz';
+  const strThreeFive = 'FizzBuzz';
+
+  if (num % 3 === 0 && num % 5 === 0) {
+    return strThreeFive;
+  }
+
+  if (num % 3 === 0) {
+    return strThree;
+  }
+
+  if (num % 5 === 0) {
+    return strFive;
+  }
+
+  return num;
 }
 
 
@@ -43,8 +59,8 @@ function getFizzBuzz(/* num */) {
  *   5  => 120
  *   10 => 3628800
  */
-function getFactorial(/* n */) {
-  throw new Error('Not implemented');
+function getFactorial(n) {
+  return (n !== 1) ? n * getFactorial(n - 1) : 1;
 }
 
 
@@ -60,8 +76,18 @@ function getFactorial(/* n */) {
  *   5,10  =>  45 ( = 5+6+7+8+9+10 )
  *   -1,1  =>  0  ( = -1 + 0 + 1 )
  */
-function getSumBetweenNumbers(/* n1, n2 */) {
-  throw new Error('Not implemented');
+function getSumBetweenNumbers(n1, n2) {
+  const array = [];
+  for (let i = n1; i <= n2; i += 1) {
+    array.push(i);
+  }
+
+  const sum = array.reduce((currentSum, currentNum) => {
+    const res = currentSum + currentNum;
+    return res;
+  }, 0);
+
+  return sum;
 }
 
 
@@ -80,8 +106,11 @@ function getSumBetweenNumbers(/* n1, n2 */) {
  *   10,1,1   =>  false
  *   10,10,10 =>  true
  */
-function isTriangle(/* a, b, c */) {
-  throw new Error('Not implemented');
+function isTriangle(a, b, c) {
+  if (a + b > c && a + c > b && b + c > a) {
+    return true;
+  }
+  return false;
 }
 
 
@@ -117,8 +146,16 @@ function isTriangle(/* a, b, c */) {
  *   { top:20, left:20, width: 20, height: 20 }    =>  false
  *
  */
-function doRectanglesOverlap(/* rect1, rect2 */) {
-  throw new Error('Not implemented');
+function doRectanglesOverlap(rect1, rect2) {
+  if (rect1.top < rect2.height && rect2.top < rect1.height) {
+    return true;
+  }
+
+  if (rect1.left < rect2.width && rect2.left < rect1.width) {
+    return true;
+  }
+
+  return false;
 }
 
 
@@ -148,8 +185,12 @@ function doRectanglesOverlap(/* rect1, rect2 */) {
  *   { center: { x:0, y:0 }, radius:10 },  { x:10, y:10 }   => false
  *
  */
-function isInsideCircle(/* circle, point */) {
-  throw new Error('Not implemented');
+function isInsideCircle(circle, point) {
+  if ((((point.x - circle.center.x) ** 2) + ((point.y - circle.center.y) ** 2)) <= circle.radius) {
+    return true;
+  }
+
+  return false;
 }
 
 
@@ -394,8 +435,30 @@ function getMatrixProduct(/* m1, m2 */) {
  *    [    ,   ,    ]]
  *
  */
-function evaluateTicTacToePosition(/* position */) {
-  throw new Error('Not implemented');
+function evaluateTicTacToePosition(position) {
+  const res = [];
+  position.map((el, index) => {
+    const str = el.join('');
+    if (str === '000' || str === 'XXX') {
+      res.push(el[0]);
+    }
+
+    if (position[0][index] === position[1][index] && position[1][index] === position[2][index]) {
+      res.push(position[0][index]);
+    }
+
+    if (position[0][2] === position[1][1] && position[1][1] === position[2][0]) {
+      res.push(position[1][1]);
+    }
+
+    if (position[0][0] === position[1][1] && position[1][1] === position[2][2]) {
+      res.push(position[1][1]);
+    }
+
+    return el;
+  });
+
+  return res[0];
 }
 
 
