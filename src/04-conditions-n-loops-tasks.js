@@ -360,8 +360,9 @@ function isBracketsBalanced(/* str */) {
  *    365, 4  => '11231'
  *    365, 10 => '365'
  */
-function toNaryString(/* num, n */) {
-  throw new Error('Not implemented');
+function toNaryString(num, n) {
+  const res = num.toString(n);
+  return res;
 }
 
 
@@ -400,8 +401,45 @@ function getCommonDirectoryPath(/* pathes */) {
  *                         [ 6 ]]
  *
  */
-function getMatrixProduct(/* m1, m2 */) {
-  throw new Error('Not implemented');
+function getMatrixProduct(m1, m2) {
+  const colsM1 = m1[0].length;
+  const colsM2 = m2[0].length;
+  const m3 = [];
+
+  if (colsM1 !== colsM2) {
+    for (let i = 0; i < m1.length; i += 1) {
+      m3[i] = [];
+    }
+
+    for (let k = 0; k < m2.length; k += 1) {
+      for (let i = 0; i < m1.length; i += 1) {
+        let t = 0;
+        for (let j = 0; j < m2.length; j += 1) {
+          t += m1[i][j] * m2[j][k];
+          m3[i][k] = t;
+        }
+      }
+      return m3;
+    }
+  }
+
+  if (colsM1 === colsM2) {
+    for (let i = 0; i < m1.length; i += 1) {
+      m3[i] = [];
+    }
+
+    for (let k = 0; k < m2.length; k += 1) {
+      for (let i = 0; i < m1.length; i += 1) {
+        let t = 0;
+        for (let j = 0; j < m2.length; j += 1) {
+          t += m1[i][j] * m2[j][k];
+          m3[i][k] = t;
+        }
+      }
+    }
+    return m3;
+  }
+  return m3;
 }
 
 
