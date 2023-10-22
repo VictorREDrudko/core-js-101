@@ -205,8 +205,17 @@ function isInsideCircle(circle, point) {
  *   'abracadabra'  => 'c'
  *   'entente' => null
  */
-function findFirstSingleChar(/* str */) {
-  throw new Error('Not implemented');
+function findFirstSingleChar(str) {
+  const array = str.split(' ');
+  for (let i = 0; i < array.length; i += 1) {
+    for (let j = 0; j < array[i].length; j += 1) {
+      const strRes = array[i].replace(array[i][j], '');
+      if (strRes.indexOf(array[i][j]) === -1) {
+        return array[i][j];
+      }
+    }
+  }
+  return null;
 }
 
 
@@ -232,8 +241,27 @@ function findFirstSingleChar(/* str */) {
  *   5, 3, true, true   => '[3, 5]'
  *
  */
-function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
-  throw new Error('Not implemented');
+function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
+  let s = isStartIncluded;
+  let e = isEndIncluded;
+
+  if (s) {
+    s = '[';
+  } else {
+    s = '(';
+  }
+
+  if (e) {
+    e = ']';
+  } else {
+    e = ')';
+  }
+
+  if (a < b) {
+    return `${s}${a}, ${b}${e}`;
+  }
+
+  return `${s}${b}, ${a}${e}`;
 }
 
 
@@ -249,8 +277,25 @@ function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
  * 'rotator' => 'rotator'
  * 'noon' => 'noon'
  */
-function reverseString(/* str */) {
-  throw new Error('Not implemented');
+function reverseString(str) {
+  const arrayAll = str.split(' ');
+  const arrayAllRevers = arrayAll.map((el, index) => {
+    const item = arrayAll[arrayAll.length - 1 - index];
+    return item;
+  });
+
+  const arrayReversElement = arrayAllRevers.map((el) => {
+    const arrayElement = el.split('');
+    const arrayElementRevers = arrayElement.map((item1, indexEl) => {
+      const itemEl = arrayElement[arrayElement.length - 1 - indexEl];
+      return itemEl;
+    });
+
+    const itemEl1 = arrayElementRevers.join('');
+    return itemEl1;
+  });
+
+  return arrayReversElement.join(' ');
 }
 
 
@@ -266,8 +311,15 @@ function reverseString(/* str */) {
  *   87354 => 45378
  *   34143 => 34143
  */
-function reverseInteger(/* num */) {
-  throw new Error('Not implemented');
+function reverseInteger(num) {
+  const array = String(num).split('');
+
+  const arrayRevers = array.map((el, index) => {
+    const number = array[array.length - 1 - index];
+    return number;
+  });
+
+  return Number(arrayRevers.join(''));
 }
 
 
@@ -291,8 +343,57 @@ function reverseInteger(/* num */) {
  *   5436468789016589 => false
  *   4916123456789012 => false
  */
-function isCreditCardNumber(/* ccn */) {
-  throw new Error('Not implemented');
+function isCreditCardNumber(ccn) {
+  const strCcn = String(ccn);
+  const strNumber = strCcn.slice(0, strCcn.length - 1);
+  const arrNumber = strNumber.split('');
+
+  const reversStrNumber = arrNumber.map((el, index) => {
+    const item = arrNumber[arrNumber.length - 1 - index];
+    return item;
+  });
+
+  const toReversStrNumber = reversStrNumber.map((num, ind) => {
+    if (ind === 0) {
+      const resNum1 = num * 2;
+      if (resNum1 >= 10) {
+        const arrResNum1 = String(resNum1).split('');
+        const res1 = Number(arrResNum1[0]) + Number(arrResNum1[1]);
+        return res1;
+      }
+      return resNum1;
+    }
+
+    if (ind % 2 === 0) {
+      const resNum2 = num * 2;
+      if (resNum2 >= 10) {
+        const arrResNum2 = String(resNum2).split('');
+        const res2 = Number(arrResNum2[0]) + Number(arrResNum2[1]);
+        return res2;
+      }
+      return resNum2;
+    }
+    return Number(num);
+  });
+
+  const sum = toReversStrNumber.reduce((acc, el) => {
+    const sumEl = acc + el;
+    return sumEl;
+  });
+
+  const numSum = String(sum);
+  const promNumSum = 10 - Number(numSum[1]);
+  const promNumSum1 = 10 - promNumSum;
+  let numCode = 10 - promNumSum1;
+
+  if (Number(numSum[1]) === 0) {
+    numCode = 0;
+  }
+
+  if (numCode === Number(strCcn[strCcn.length - 1])) {
+    return true;
+  }
+  return false;
 }
 
 /**
@@ -309,8 +410,21 @@ function isCreditCardNumber(/* ccn */) {
  *   10000 ( 1+0+0+0+0 = 1 ) => 1
  *   165536 (1+6+5+5+3+6 = 26,  2+6 = 8) => 8
  */
-function getDigitalRoot(/* num */) {
-  throw new Error('Not implemented');
+function getDigitalRoot(num) {
+  const str = String(num);
+  const arrayStr = str.split('');
+  const sum = arrayStr.reduce((acc, el) => {
+    const sumEl = Number(acc) + Number(el);
+    return sumEl;
+  });
+
+  if (sum >= 10) {
+    const strNum = String(sum);
+    const res = Number(strNum[0]) + Number(strNum[1]);
+    return res;
+  }
+
+  return sum;
 }
 
 
@@ -349,6 +463,7 @@ function isBracketsBalanced(/* str */) {
  * https://en.wikipedia.org/wiki/Radix
  *
  * @param {number} num
+ *
  * @param {number} n, radix of the result
  * @return {string}
  *
