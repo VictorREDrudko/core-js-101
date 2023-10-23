@@ -147,12 +147,20 @@ function isTriangle(a, b, c) {
  *
  */
 function doRectanglesOverlap(rect1, rect2) {
-  if (rect1.top < rect2.height && rect2.top < rect1.height) {
-    return true;
-  }
+  const topStart1 = rect1.top;
+  const topStart2 = rect2.top;
+  const topEnd1 = rect1.top + rect1.height;
+  const topEnd2 = rect2.top + rect2.height;
 
-  if (rect1.left < rect2.width && rect2.left < rect1.width) {
-    return true;
+  const leftStart1 = rect1.left;
+  const leftStart2 = rect2.left;
+  const leftEnd1 = rect1.left + rect1.width;
+  const leftEnd2 = rect2.left + rect2.width;
+
+  if (topEnd2 > topStart1 && topEnd1 > topStart2) {
+    if (leftEnd2 > leftStart1 && leftEnd1 > leftStart2) {
+      return true;
+    }
   }
 
   return false;
@@ -186,10 +194,13 @@ function doRectanglesOverlap(rect1, rect2) {
  *
  */
 function isInsideCircle(circle, point) {
-  if ((((point.x - circle.center.x) ** 2) + ((point.y - circle.center.y) ** 2)) <= circle.radius) {
+  const a = point.x - circle.center.x;
+  const b = point.y - circle.center.y;
+  const hypotenuse = Math.sqrt(a ** 2 + b ** 2);
+
+  if (hypotenuse < circle.radius) {
     return true;
   }
-
   return false;
 }
 
@@ -493,8 +504,54 @@ function toNaryString(num, n) {
  *   ['/web/assets/style.css', '/.bin/mocha',  '/read.me'] => '/'
  *   ['/web/favicon.ico', '/web-scripts/dump', '/verbalizer/logs'] => '/'
  */
-function getCommonDirectoryPath(/* pathes */) {
-  throw new Error('Not implemented');
+function getCommonDirectoryPath(pathes) {
+  const subArray = pathes.map((el) => {
+    const arrayEl = el.split(' ');
+    return arrayEl;
+  });
+
+  const resObj = {};
+  const resArray = [];
+
+  for (let i = 0; i < subArray.length; i += 1) {
+    const arrayPath = subArray[i];
+    arrayPath.map((el) => {
+      const arrayEl = el.split('/');
+      resArray.push(arrayEl);
+      return el;
+    });
+  }
+
+  for (let j = 0; j < resArray[0].length; j += 1) {
+    resObj[j] = [];
+  }
+
+  for (let i = 0; i < resArray.length; i += 1) {
+    for (let j = 0; j < resArray[0].length; j += 1) {
+      resObj[j].push(resArray[i][j]);
+    }
+  }
+
+  const arr = [];
+  for (let j = 0; j < resArray[0].length; j += 1) {
+    const resBool = resObj[j].every((el) => el === resObj[j][0]);
+    if (resBool === true) {
+      arr.push(resObj[j][0]);
+    }
+
+    if (resBool === false) {
+      arr.push(null);
+    }
+  }
+
+  if (arr[0] === null) {
+    return '';
+  }
+
+  if (arr.join('/') === '//' || arr.join('/') === '///') {
+    return '/';
+  }
+  return arr.join('/');
 }
 
 

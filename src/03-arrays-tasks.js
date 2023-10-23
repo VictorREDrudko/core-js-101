@@ -572,6 +572,19 @@ function sortCitiesArray(arr) {
     return 0;
   });
 
+  arr.sort((a, b) => {
+    if (a.country === b.country) {
+      if (a.city > b.city) {
+        return 1;
+      }
+      if (a.city < b.city) {
+        return -1;
+      }
+      return 0;
+    }
+    return 0;
+  });
+
   return arr;
 }
 
@@ -629,7 +642,12 @@ function getIdentityMatrix(n) {
  */
 function getIntervalArray(start, end) {
   const arr = [];
-  arr.length = end;
+  if (start >= 0) {
+    arr.length = end;
+  }
+  if (start < 0) {
+    arr.length = -(start) + end;
+  }
   arr.fill(0);
   const res1 = [];
 
